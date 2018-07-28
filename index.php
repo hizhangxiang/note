@@ -42,14 +42,15 @@
 				var title=document.getElementById("title").value;
 				var content=document.getElementById("content").value;
 				var add_time=getFormatDate();
+				var screen=get_screen();
 				alert(getFormatDate());
 				$.ajax({
 					type:'post',
 					url:'api.php?action=add',
-					data:{"title":title,"content":content,"add_time":add_time},
+					data:{"title":title,"content":content,"add_time":add_time,"screen":screen},
 					success:function(data){					
 						console.log(data);
-						handle_json(data);// alert(data.data);
+						alert('add success~~');
 					},
 					error:function(data, status, e){
 						alert('ajax error!'+data+status+e);
@@ -99,6 +100,9 @@
 		}
 		var currentDate = date.getFullYear() + "-" + month + "-" + strDate+ " " + hour + ":" + minute + ":" + second;
 		return currentDate;
+	}
+	function get_screen(){
+		return window.screen.width+"*"+window.screen.height;
 	}
 			</script>
 </body>

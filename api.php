@@ -2,7 +2,7 @@
 	$conn = @mysql_connect("localhost", "root", "root") or die("query error");
 	mysql_select_db("data", $conn);
 	mysql_query("set names 'UTF8'"); 
-		
+	
 	if(isset($_GET['action'])){
 		$action=$_GET['action'];
 		switch($action){
@@ -15,12 +15,15 @@
 		}
 	}
 	
-	function add($conn){
-		if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['add_time'])){
+	function add($conn){			
+		if(isset($_POST['title'])&&isset($_POST['content'])&&isset($_POST['add_time'])&&isset($_POST['screen'])){
 			$title=$_POST['title'];
 			$content=$_POST['content'];
 			$add_time=$_POST['add_time'];
-			$sql="insert into note(id,title,content,add_time) values('','$title','$content','$add_time');";
+			$ip=$_SERVER['REMOTE_ADDR'];
+			$screen=$_POST['screen'];
+		    $agent=$_SERVER['HTTP_USER_AGENT'];			
+			$sql="insert into note(id,title,content,add_time,ip,screen,agent) values('','$title','$content','$add_time','$ip','$screen','$agent');";
 			$result=mysql_query($sql,$conn);
 			if($result){
 				$array=array(
